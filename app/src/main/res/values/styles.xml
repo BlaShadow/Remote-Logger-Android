@@ -1,0 +1,28 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+
+        <item name="windowActionBar">false</item>
+
+        <item name="drawerArrowStyle">@style/Theme.Test.DrawerArrowStyle</item>
+
+    </style>
+
+    <style name="Theme.Test.DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <!-- Hide Action bar -->
+    <style name="AppTheme.NoActionBar">
+        <!-- Both of these are needed -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <color name="colorToolbar">#388E3C</color>
+    <color name="colorActionButton">#0288D1</color>
+
+</resources>
