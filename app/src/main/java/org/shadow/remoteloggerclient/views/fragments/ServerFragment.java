@@ -1,11 +1,27 @@
 package org.shadow.remoteloggerclient.views.fragments;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
+
 import org.shadow.remoteloggerclient.R;
+import org.shadow.remoteloggerclient.domain.dao.ServerDAO;
+import org.shadow.remoteloggerclient.domain.model.Server;
+import org.shadow.remoteloggerclient.views.adapters.ServerAdapter;
+import org.shadow.remoteloggerclient.views.events.RecyclerItemClickListener;
+
+import java.util.List;
 
 /**
  * Created by luis romero on 5/8/15.
  */
 public class ServerFragment extends BaseLocalFragment {
+
+    private RecyclerView lvServers;
+
+    private ServerAdapter serverAdapter;
+    private LinearLayoutManager layoutManager;
 
     @Override
     public int getToolbar() {
@@ -22,4 +38,41 @@ public class ServerFragment extends BaseLocalFragment {
         return "Servers";
     }
 
+    @Override
+    public void onViewCreated() {
+        layoutManager = new LinearLayoutManager(getActivity());
+
+        /** Conf the recycle view **/
+        setupRecycleView();
+
+        /** Populate list **/
+        bindRecycleView();
+    }
+
+    private void setupRecycleView(){
+        lvServers = (RecyclerView)rootView.findViewById(R.id.lv_items_server_fragment);
+
+        lvServers.setHasFixedSize(true);
+        lvServers.setLayoutManager(layoutManager);
+
+        lvServers.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        if (serverAdapter != null) {
+                            Toast.makeText(getActivity(),"Server",Toast.LENGTH_LONG).show();
+                            //TODO server click, show details
+                        }
+                    }
+                })
+        );
+    }
+
+    private void bindRecycleView(){
+        List<Server> data = ServerDAO.getInstance().getAll();
+
+        serverAdapter = new ServerAdapter(getDrawerActivity(), data);
+
+        lvServers.setAdapter(serverAdapter);
+    }
 }

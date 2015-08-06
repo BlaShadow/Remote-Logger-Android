@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import org.shadow.remoteloggerclient.R;
 import org.shadow.remoteloggerclient.domain.model.Server;
+import org.shadow.remoteloggerclient.views.util.UtilApp;
 
 import java.util.List;
 
@@ -32,23 +33,26 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
 
     private List<Server> data;
     private Context context;
-    private int itemListLayout;
 
-    public ServerAdapter(Context context, List<Server> data, int layout) {
+    public ServerAdapter(Context context, List<Server> data) {
+
+        UtilApp.logMessage("Getting constructor " + data);
+
         this.context = context;
         this.data = data;
-        this.itemListLayout = layout;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View itemView = inflater.inflate(this.itemListLayout, parent, false);
+        View itemView = inflater.inflate(R.layout.list_item_server, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(itemView);
 
         viewHolder.setIsRecyclable(false);
+
+        UtilApp.logMessage("Getting viewHolder ");
 
         return viewHolder;
     }
@@ -57,16 +61,20 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Server item = getItem(position);
 
-        viewHolder.urlTarget.setText(item.targetUrl);
-        viewHolder.nameServer.setText(item.name);
+        viewHolder.urlTarget.setText(item.getTargetUrl());
+        viewHolder.nameServer.setText(item.getName());
+
+        UtilApp.logMessage("Getting view " + data.size());
     }
 
     @Override
     public int getItemCount() {
+        UtilApp.logMessage("Getting count " + data.size());
         return data.size();
     }
 
     public Server getItem(int position){
+        UtilApp.logMessage("Getting position " + position);
         return data.get(position);
     }
 }
