@@ -32,7 +32,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/background_dark"
-                android:visibility="gone"
                 android:fontFamily="sans-serif-light"
                 android:textSize="18sp" />
         </LinearLayout>
