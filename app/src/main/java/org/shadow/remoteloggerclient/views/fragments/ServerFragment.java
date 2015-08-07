@@ -85,10 +85,19 @@ public class ServerFragment extends BaseLocalFragment {
     }
 
     private void bindRecycleView(){
+        /** Bind the recycle view **/
         List<Server> data = ServerDAO.getInstance().getAll();
 
         serverAdapter = new ServerAdapter(getDrawerActivity(), data);
 
         lvServers.setAdapter(serverAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        /** Reload the data **/
+        bindRecycleView();
     }
 }
