@@ -1,5 +1,7 @@
 package org.shadow.remoteloggerclient.views.fragments;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.Toast;
 import org.shadow.remoteloggerclient.R;
 import org.shadow.remoteloggerclient.domain.dao.ServerDAO;
 import org.shadow.remoteloggerclient.domain.model.Server;
+import org.shadow.remoteloggerclient.views.ServerRegister;
 import org.shadow.remoteloggerclient.views.adapters.ServerAdapter;
 import org.shadow.remoteloggerclient.views.events.RecyclerItemClickListener;
 
@@ -47,13 +50,26 @@ public class ServerFragment extends BaseLocalFragment {
 
         /** Populate list **/
         bindRecycleView();
+
+        FloatingActionButton floatingButton = (FloatingActionButton)rootView.findViewById(R.id.fragment_server_add_server_btn);
+
+        floatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Add server", Toast.LENGTH_LONG).show();
+
+                Intent intentActivity = new Intent(getActivity(), ServerRegister.class);
+
+                getActivity().startActivity(intentActivity);
+            }
+        });
     }
 
     private void setupRecycleView(){
         lvServers = (RecyclerView)rootView.findViewById(R.id.lv_items_server_fragment);
 
         lvServers.setHasFixedSize(true);
-        lvServers.setLayoutManager(layoutManager);
+       lvServers.setLayoutManager(layoutManager);
 
         lvServers.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {

@@ -4,6 +4,7 @@
     android:background="#eeeeee"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_server_parent_view"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -39,5 +40,15 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:divider="#FF221CF5"
         />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fragment_server_add_server_btn"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:layout_anchor="@id/fragment_server_parent_view"
+        app:layout_anchorGravity="bottom|right|end"
+        android:src="@mipmap/icon_plus"
+        android:layout_margin="16dp"
+        android:clickable="true"/>
 
 </android.support.design.widget.CoordinatorLayout>

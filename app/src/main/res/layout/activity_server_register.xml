@@ -1,0 +1,87 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:background="#eeeeee"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_server_parent_view"
+    android:orientation="vertical"
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_server_register_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@color/colorToolbar"
+
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_margin="15dp"
+        android:orientation="vertical"
+        android:background="#FFD3D3D3"
+        app:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    >
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:hint="Name"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FF4D4D4D"
+                        android:textColorHint="#FFA0A0A0"
+                        android:background="@android:color/transparent"
+                        />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:background="@android:color/black"
+                        android:layout_height="0.4dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    >
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:hint="http://localhost or 127.0.0.1"
+                        android:textColor="#FF4D4D4D"
+                        android:textColorHint="#FFA0A0A0"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:background="@android:color/black"
+                        android:layout_height="0.4dp"/>
+
+                </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

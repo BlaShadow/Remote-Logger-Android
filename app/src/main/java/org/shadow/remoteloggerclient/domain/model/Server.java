@@ -11,8 +11,12 @@ import com.activeandroid.annotation.Table;
 @Table(name = "server")
 public class Server extends Model {
 
-    public Server(String name, String targetUrl){
+    public Server(){
         super();
+    }
+
+    public Server(String name, String targetUrl){
+        this();
 
         this.name = name;
         this.targetUrl = targetUrl;
