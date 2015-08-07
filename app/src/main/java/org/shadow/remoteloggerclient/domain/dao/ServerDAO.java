@@ -16,6 +16,12 @@ public class ServerDAO {
         return _instance == null? (_instance = new ServerDAO()): _instance;
     }
 
+    public boolean saveServer(String name, String target){
+        Server item = new Server(name, target);
+
+        return item.save() > 0;
+    }
+
     public List<Server> getAll(){
         return new Select().from(Server.class).execute();
     }

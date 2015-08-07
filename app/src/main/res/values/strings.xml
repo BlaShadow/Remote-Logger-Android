@@ -9,4 +9,7 @@
     <string name="drawer_close">Close</string>
     <string name="title_activity_server_register">ServerRegister</string>
 
+
+    <string name="error_server_register_fields_required">All fields are required!</string>
+
 </resources>
