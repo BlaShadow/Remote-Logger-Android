@@ -44,6 +44,7 @@
                     >
 
                     <EditText
+                        android:id="@+id/activity_server_register_name_txt"
                         android:layout_width="fill_parent"
                         android:hint="Name"
                         android:layout_height="wrap_content"
@@ -68,6 +69,7 @@
                     >
 
                     <EditText
+                        android:id="@+id/activity_server_register_target_txt"
                         android:layout_width="fill_parent"
                         android:hint="http://localhost or 127.0.0.1"
                         android:textColor="#FF4D4D4D"

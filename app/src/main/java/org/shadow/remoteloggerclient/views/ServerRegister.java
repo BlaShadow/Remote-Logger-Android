@@ -22,8 +22,8 @@ public class ServerRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server_register);
 
-        nameTxt = (TextView)findViewById(R.id.txt_name_item_server);
-        targetTxt = (TextView)findViewById(R.id.txt_target_url_item_server);
+        nameTxt = (TextView)findViewById(R.id.activity_server_register_name_txt);
+        targetTxt = (TextView)findViewById(R.id.activity_server_register_target_txt);
 
         setupToolbar();
     }
@@ -54,6 +54,7 @@ public class ServerRegister extends AppCompatActivity {
     private void saveServer(){
         String name = nameTxt.getText().toString();
         String target = targetTxt.getText().toString();
+
         if(name.isEmpty() || target.isEmpty()){
             String errorMessage = UtilApp.getStringResource(this, R.string.error_server_register_fields_required);
 
@@ -62,9 +63,15 @@ public class ServerRegister extends AppCompatActivity {
             snack.getView().setBackgroundColor( getResources().getColor(R.color.errorColor) );
 
             snack.show();
+
+            return;
         }
 
-        ServerDAO.getInstance().saveServer(name, target);
+        boolean result = ServerDAO.getInstance().saveServer(name, target);
+
+        if(result){
+            finish();
+        }
     }
 
     public void setupToolbar(){
