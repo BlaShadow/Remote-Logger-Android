@@ -12,4 +12,6 @@
 
     <string name="error_server_register_fields_required">All fields are required!</string>
 
+
+    <string name="toolbar_server_register">Register Server</string>
 </resources>

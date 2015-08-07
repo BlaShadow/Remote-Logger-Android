@@ -52,7 +52,7 @@ public class ServerRegister extends AppCompatActivity {
     }
 
     private void saveServer(){
-        String name = nameTxt.getText().toString();
+        String name =nameTxt.getText().toString();
         String target = targetTxt.getText().toString();
 
         if(name.isEmpty() || target.isEmpty()){
@@ -60,7 +60,7 @@ public class ServerRegister extends AppCompatActivity {
 
             Snackbar snack = Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_SHORT);
 
-            snack.getView().setBackgroundColor( getResources().getColor(R.color.errorColor) );
+            snack.getView().setBackgroundColor(getResources().getColor(R.color.errorColor));
 
             snack.show();
 
@@ -76,6 +76,9 @@ public class ServerRegister extends AppCompatActivity {
 
     public void setupToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_server_register_toolbar);
+
+        toolbar.setTitle(UtilApp.getStringResource(this, R.string.toolbar_server_register));
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
