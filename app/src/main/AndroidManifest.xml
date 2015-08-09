@@ -32,6 +32,10 @@
             android:name=".views.ServerRegister"
             android:label="@string/title_activity_server_register" >
         </activity>
+        <activity
+            android:name=".views.ServerDetails"
+            android:label="@string/title_activity_server_details" >
+        </activity>
     </application>
 
 </manifest>
