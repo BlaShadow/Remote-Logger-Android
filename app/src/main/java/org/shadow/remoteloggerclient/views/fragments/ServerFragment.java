@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ServerFragment extends BaseLocalFragment {
 
-    public static final String SERVERID = "serverid";
+    public static String SERVERID = "serverid";
 
     private RecyclerView lvServers;
 
@@ -54,6 +54,11 @@ public class ServerFragment extends BaseLocalFragment {
         /** Populate list **/
         bindRecycleView();
 
+        /** setup floating button **/
+        setupFloatingButton();
+    }
+
+    public void setupFloatingButton(){
         FloatingActionButton floatingButton = (FloatingActionButton)rootView.findViewById(R.id.fragment_server_add_server_btn);
 
         floatingButton.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +86,9 @@ public class ServerFragment extends BaseLocalFragment {
                         if (serverAdapter != null) {
                             Intent intentActivity = new Intent(getActivity(), ServerDetails.class);
 
-                            intentActivity.putExtra(SERVERID, serverAdapter.getItem(position).getId());
+                            long itemId = serverAdapter.getItem(position).getId();
+
+                            intentActivity.putExtra(SERVERID, itemId);
 
                             startActivity(intentActivity);
                         }

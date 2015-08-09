@@ -18,7 +18,7 @@ public class ServerDAO {
     }
 
     public void deleteServer(long id){
-        Server item = new Select().from(Server.class).where("id="+id).executeSingle();
+        Server item = get(id);
 
         if(item != null){
             item.delete();
@@ -29,6 +29,12 @@ public class ServerDAO {
         Server item = new Server(name, target);
 
         return item.save() > 0;
+    }
+
+    public Server get(long id){
+        Server item = new Select().from(Server.class).where("id="+id).executeSingle();
+
+        return item;
     }
 
     public List<Server> getAll(){
