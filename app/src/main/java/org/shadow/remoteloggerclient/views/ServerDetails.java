@@ -1,5 +1,7 @@
 package org.shadow.remoteloggerclient.views;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,11 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
+import org.json.JSONObject;
 import org.shadow.remoteloggerclient.R;
 import org.shadow.remoteloggerclient.domain.dao.ServerDAO;
 import org.shadow.remoteloggerclient.domain.model.Server;
@@ -29,6 +36,9 @@ public class ServerDetails extends AppCompatActivity {
     /** Activate or deactivate listening events switch **/
     private SwitchCompat switchListening;
 
+    /** Main socket instance **/
+    private Socket io;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +51,12 @@ public class ServerDetails extends AppCompatActivity {
 
         switchListening.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Log.i("TAG", "Hola mundo");
+            public void onCheckedChanged(CompoundButton compoundButton, boolean value) {
+                if(value){
+                    connect();
+                }else{
+                    disconnect();
+                }
             }
         });
 
@@ -63,14 +77,60 @@ public class ServerDetails extends AppCompatActivity {
 
         /** Bind view with server data **/
         bindView(item);
+
+        /** Prepare the socket **/
+        setupSocketIO(item);
+    }
+
+    private void setupSocketIO(Server item){
+        try {
+            io = IO.socket(item.getTargetUrl());
+
+            io.on("index",new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    JSONObject dataReceive = (JSONObject)args[0];
+
+                    Log.i("SOCKET.IO", "Event receive " + args.length);
+
+                    handleMessage(dataReceive);
+                }
+            });
+        }catch (Exception ex){
+            Log.i("Exception", ex.getMessage());
+        }
+    }
+
+    private void connect(){
+        io.connect();
+        showToastMessage("Connected");
+    }
+
+    private void disconnect(){
+        io.disconnect();
+
+        showToastMessage("Disconnected");
+    }
+
+    private void handleMessage(final JSONObject dataReceive) {
+        Runnable actionHandler = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    showToastMessage(dataReceive.getString("hello"));
+                }catch(Exception ex){
+                    showToastMessage("Exception: " + ex.getMessage());
+                }
+            }
+        };
+
+        this.runOnUiThread(actionHandler);
     }
 
     private void bindView(Server item){
-
         nameServer.setText(item.getName());
 
         targetUrl.setText(item.getTargetUrl());
-
     }
 
     private void setupToolbar(){
@@ -80,6 +140,10 @@ public class ServerDetails extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void showToastMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -98,5 +162,4 @@ public class ServerDetails extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_server_details, menu);
         return true;
     }
-
 }

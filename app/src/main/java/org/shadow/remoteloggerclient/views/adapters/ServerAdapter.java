@@ -35,9 +35,6 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
     private Context context;
 
     public ServerAdapter(Context context, List<Server> data) {
-
-        UtilApp.logMessage("Getting constructor " + data);
-
         this.context = context;
         this.data = data;
     }
@@ -52,8 +49,6 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
 
         viewHolder.setIsRecyclable(false);
 
-        UtilApp.logMessage("Getting viewHolder ");
-
         return viewHolder;
     }
 
@@ -63,18 +58,14 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
 
         viewHolder.urlTarget.setText(item.getTargetUrl());
         viewHolder.nameServer.setText(item.getName());
-
-        UtilApp.logMessage("Getting view " + data.size());
     }
 
     @Override
     public int getItemCount() {
-        UtilApp.logMessage("Getting count " + data.size());
         return data.size();
     }
 
     public Server getItem(int position){
-        UtilApp.logMessage("Getting position " + position);
         return data.get(position);
     }
 }
