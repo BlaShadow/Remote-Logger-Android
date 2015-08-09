@@ -10,6 +10,7 @@ import android.widget.Toast;
 import org.shadow.remoteloggerclient.R;
 import org.shadow.remoteloggerclient.domain.dao.ServerDAO;
 import org.shadow.remoteloggerclient.domain.model.Server;
+import org.shadow.remoteloggerclient.views.ServerDetails;
 import org.shadow.remoteloggerclient.views.ServerRegister;
 import org.shadow.remoteloggerclient.views.adapters.ServerAdapter;
 import org.shadow.remoteloggerclient.views.events.RecyclerItemClickListener;
@@ -20,6 +21,8 @@ import java.util.List;
  * Created by luis romero on 5/8/15.
  */
 public class ServerFragment extends BaseLocalFragment {
+
+    public static final String SERVERID = "serverid";
 
     private RecyclerView lvServers;
 
@@ -76,8 +79,11 @@ public class ServerFragment extends BaseLocalFragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         if (serverAdapter != null) {
-                            Toast.makeText(getActivity(),"Server",Toast.LENGTH_LONG).show();
-                            //TODO server click, show details
+                            Intent intentActivity = new Intent(getActivity(), ServerDetails.class);
+
+                            intentActivity.putExtra(SERVERID, serverAdapter.getItem(position).getId());
+
+                            startActivity(intentActivity);
                         }
                     }
                 })

@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.shadow.remoteloggerclient.R;
+import org.shadow.remoteloggerclient.views.fragments.ServerFragment;
 import org.shadow.remoteloggerclient.views.util.UtilApp;
 
 public class ServerDetails extends AppCompatActivity {
@@ -16,6 +18,16 @@ public class ServerDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server_details);
+
+        setupToolbar();
+
+        if(getIntent().getExtras() == null || getIntent().getExtras().containsKey(ServerFragment.SERVERID)){
+
+            Toast.makeText(this, "Server not found "+ getIntent().getExtras(), Toast.LENGTH_SHORT).show();
+
+//            finish();
+//            return;
+        }
     }
 
     private void setupToolbar(){
@@ -25,6 +37,16 @@ public class ServerDetails extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            default:
+                finish();
+        }
+
+        return true;
     }
 
     @Override

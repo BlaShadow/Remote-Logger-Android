@@ -74,8 +74,6 @@ public class ServerRegister extends AppCompatActivity {
         }
     }
 
-
-
     public void setupToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_server_register_toolbar);
 
