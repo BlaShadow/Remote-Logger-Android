@@ -13,11 +13,14 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
+        android:background="@android:color/white"
         android:layout_width="220dp"
+
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:itemTextColor="@android:color/black"
         app:headerLayout="@layout/drawer_header_layout"
+        app:itemIconTint="@android:color/black"
         app:menu="@menu/menu_drawer"/>
-
 
 </android.support.v4.widget.DrawerLayout>

@@ -31,4 +31,6 @@
     <color name="notification_fatal">#C62828</color>
     <color name="notification_error">#EF5350</color>
 
+    <color name="drawer_icon_tint_color">#2ecc71</color>
+
 </resources>

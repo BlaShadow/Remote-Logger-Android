@@ -20,8 +20,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,18 +30,22 @@
         </activity>
         <activity
             android:name=".views.HomeActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_home" >
+            android:label="@string/title_activity_home"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".views.ServerRegister"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_server_register" >
+            android:label="@string/title_activity_server_register"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".views.ServerDetails"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_server_details" >
+            android:label="@string/title_activity_server_details"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".views.AboutActivity"
+            android:label="@string/title_activity_about" >
         </activity>
     </application>
 

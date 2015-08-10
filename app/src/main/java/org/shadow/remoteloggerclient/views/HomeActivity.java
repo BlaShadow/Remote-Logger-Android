@@ -1,5 +1,6 @@
 package org.shadow.remoteloggerclient.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -146,6 +147,11 @@ public class HomeActivity extends AppCompatActivity implements DrawerLayout.Draw
                 fragment = new ServerFragment();
                 break;
 
+            case R.id.about_drawer_menu_item:
+                Intent activityIntent = new Intent(this, AboutActivity.class);
+
+                startActivity(activityIntent);
+                return true;
             default:
                 fragment = new ServerFragment();
         }

@@ -4,8 +4,14 @@
         <item
             android:checked="true"
             android:id="@+id/server_drawer_menu_item"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Inicio"
+            android:icon="@mipmap/icon_servers"
+            android:title="Servers"
+            />
+
+        <item
+            android:id="@+id/about_drawer_menu_item"
+            android:icon="@mipmap/icon_about"
+            android:title="About"
             />
     </group>
 </menu>
