@@ -77,7 +77,7 @@ public class ServerFragment extends BaseLocalFragment {
         lvServers = (RecyclerView)rootView.findViewById(R.id.lv_items_server_fragment);
 
         lvServers.setHasFixedSize(true);
-       lvServers.setLayoutManager(layoutManager);
+        lvServers.setLayoutManager(layoutManager);
 
         lvServers.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {

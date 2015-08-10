@@ -58,4 +58,12 @@
                 />
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/service_details_logs_rv"
+        />
+
 </LinearLayout>

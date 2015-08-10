@@ -5,6 +5,8 @@ import android.os.Looper;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,9 +23,13 @@ import com.github.nkzawa.socketio.client.Socket;
 import org.json.JSONObject;
 import org.shadow.remoteloggerclient.R;
 import org.shadow.remoteloggerclient.domain.dao.ServerDAO;
+import org.shadow.remoteloggerclient.domain.model.LogMessage;
 import org.shadow.remoteloggerclient.domain.model.Server;
+import org.shadow.remoteloggerclient.views.adapters.LogMessageAdapter;
 import org.shadow.remoteloggerclient.views.fragments.ServerFragment;
 import org.shadow.remoteloggerclient.views.util.UtilApp;
+
+import java.util.ArrayList;
 
 public class ServerDetails extends AppCompatActivity {
 
@@ -39,15 +45,30 @@ public class ServerDetails extends AppCompatActivity {
     /** Main socket instance **/
     private Socket io;
 
+    /** Log message adapter **/
+    private LogMessageAdapter logAdapter;
+
+    /** Recycle view of logs messages **/
+    private RecyclerView recycleListView;
+
+    /** list log messages holder **/
+    private ArrayList<LogMessage> logMessageList;
+
+    /** Linear layout for the recycle view **/
+    private LinearLayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server_details);
 
+        layoutManager = new LinearLayoutManager(this);
+
         /** Init view **/
         nameServer = (TextView)findViewById(R.id.server_details_name);
         targetUrl = (TextView)findViewById(R.id.server_details_target_url);
         switchListening = (SwitchCompat)findViewById(R.id.server_details_logs_switch);
+        recycleListView = (RecyclerView)findViewById(R.id.service_details_logs_rv);
 
         switchListening.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -80,16 +101,36 @@ public class ServerDetails extends AppCompatActivity {
 
         /** Prepare the socket **/
         setupSocketIO(item);
+
+        /** Prepare the list **/
+        setupRecycleView();
+    }
+
+    private void setupRecycleView(){
+        logMessageList = new ArrayList<>();
+
+        logAdapter = new LogMessageAdapter(this, logMessageList);
+
+        recycleListView.setLayoutManager(layoutManager);
+        recycleListView.setAdapter(logAdapter);
+    }
+
+    private void logMessage(String message){
+        LogMessage item = new LogMessage(message);
+
+        logMessageList.add(0, item);
+
+        logAdapter.notifyDataSetChanged();
     }
 
     private void setupSocketIO(Server item){
         try {
             io = IO.socket(item.getTargetUrl());
 
-            io.on("index",new Emitter.Listener() {
+            io.on("index", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    JSONObject dataReceive = (JSONObject)args[0];
+                    JSONObject dataReceive = (JSONObject) args[0];
 
                     Log.i("SOCKET.IO", "Event receive " + args.length);
 
@@ -144,6 +185,8 @@ public class ServerDetails extends AppCompatActivity {
 
     private void showToastMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+        logMessage(message);
     }
 
     @Override
