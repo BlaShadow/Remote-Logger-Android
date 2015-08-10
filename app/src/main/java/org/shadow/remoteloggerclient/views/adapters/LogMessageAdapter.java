@@ -25,6 +25,7 @@ public class LogMessageAdapter extends RecyclerView.Adapter<LogMessageAdapter.Vi
         public TextView data;
         public TextView type;
         public TextView date;
+        public TextView extra;
 
         public CardView container;
 
@@ -34,6 +35,7 @@ public class LogMessageAdapter extends RecyclerView.Adapter<LogMessageAdapter.Vi
             data = (TextView)itemView.findViewById(R.id.item_log_message_data);
             date = (TextView)itemView.findViewById(R.id.item_log_message_date);
             type = (TextView)itemView.findViewById(R.id.item_log_message_type);
+            extra = (TextView)itemView.findViewById(R.id.item_log_message_extra_data);
 
             container = (CardView)itemView.findViewById(R.id.item_log_message_card);
         }
@@ -65,7 +67,8 @@ public class LogMessageAdapter extends RecyclerView.Adapter<LogMessageAdapter.Vi
 
         holder.data.setText(item.getMessage());
         holder.date.setText(item.getDate());
-        holder.type.setText(item.getLogType().toString());
+        holder.type.setText(item.getLogType().toString().toUpperCase());
+        holder.extra.setText(item.getExtraJsonData());
 
         holder.container.setCardBackgroundColor( context.getResources().getColor( getColor(item.getLogType()) ) );
     }

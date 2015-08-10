@@ -9,7 +9,17 @@ public class LogMessage {
 
     public String date = "";
 
-    public LogMessageType logType = LogMessageType.info;
+    public LogMessageType logType;
+
+    public String extraJsonData;
+
+    public String getExtraJsonData() {
+        return extraJsonData;
+    }
+
+    public void setExtraJsonData(String extraJsonData) {
+        this.extraJsonData = extraJsonData;
+    }
 
     public String getMessage() {
         return message;
@@ -37,6 +47,7 @@ public class LogMessage {
 
     public LogMessage(String message){
         this.message = message;
+        this.logType = LogMessageType.info;
     }
 
     public LogMessage(String message, String date, LogMessageType type){

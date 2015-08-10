@@ -43,6 +43,14 @@
                 android:fontFamily="sans-serif-light"
                 android:id="@+id/item_log_message_data"/>
 
+            <TextView
+                android:layout_below="@+id/item_log_message_data"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:fontFamily="sans-serif-light"
+                android:id="@+id/item_log_message_extra_data"/>
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import org.shadow.remoteloggerclient.R;
 import org.shadow.remoteloggerclient.domain.dao.ServerDAO;
 import org.shadow.remoteloggerclient.domain.model.LogMessage;
+import org.shadow.remoteloggerclient.domain.model.LogMessageType;
 import org.shadow.remoteloggerclient.domain.model.Server;
 import org.shadow.remoteloggerclient.views.adapters.LogMessageAdapter;
 import org.shadow.remoteloggerclient.views.fragments.ServerFragment;
@@ -115,24 +116,26 @@ public class ServerDetails extends AppCompatActivity {
         recycleListView.setAdapter(logAdapter);
     }
 
-    private void logMessage(String message){
-        LogMessage item = new LogMessage(message);
-
+    private void logMessage(LogMessage item){
         logMessageList.add(0, item);
 
         logAdapter.notifyDataSetChanged();
+    }
+
+    private void logMessage(String message){
+        LogMessage item = new LogMessage(message);
+
+        logMessage(item);
     }
 
     private void setupSocketIO(Server item){
         try {
             io = IO.socket(item.getTargetUrl());
 
-            io.on("index", new Emitter.Listener() {
+            io.on("log", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
                     JSONObject dataReceive = (JSONObject) args[0];
-
-                    Log.i("SOCKET.IO", "Event receive " + args.length);
 
                     handleMessage(dataReceive);
                 }
@@ -153,12 +156,37 @@ public class ServerDetails extends AppCompatActivity {
         showToastMessage("Disconnected");
     }
 
+    private LogMessage parseData(JSONObject data){
+
+        LogMessage item = null;
+
+        try{
+            String message = data.getString("message");
+            String date = data.getString("date");
+            String type = data.getString("log_type");
+
+            LogMessageType logType = LogMessageType.valueOf(type);
+
+            item = new LogMessage(message, date, logType);
+
+            if(data.has("extra")){
+                item.setExtraJsonData(data.getString("extra"));
+            }
+        }catch (Exception ex){
+            showToastMessage("Exception " + ex.getMessage());
+        }
+
+        return item;
+    }
+
     private void handleMessage(final JSONObject dataReceive) {
         Runnable actionHandler = new Runnable() {
             @Override
             public void run() {
                 try{
-                    showToastMessage(dataReceive.getString("hello"));
+                    LogMessage item = parseData(dataReceive);
+
+                    logMessage(item);
                 }catch(Exception ex){
                     showToastMessage("Exception: " + ex.getMessage());
                 }
@@ -175,7 +203,7 @@ public class ServerDetails extends AppCompatActivity {
     }
 
     private void setupToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_server_details_toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.activity_server_details_toolbar);
 
         toolbar.setTitle(UtilApp.getStringResource(this, R.string.toolbar_server_details));
 
