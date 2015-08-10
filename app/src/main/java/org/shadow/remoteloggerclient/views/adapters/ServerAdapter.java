@@ -1,6 +1,7 @@
 package org.shadow.remoteloggerclient.views.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +24,13 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
         public TextView nameServer;
         public TextView urlTarget;
 
+
         public ViewHolder(View itemView) {
             super(itemView);
 
             nameServer = (TextView)itemView.findViewById(R.id.txt_name_item_server);
             urlTarget = (TextView)itemView.findViewById(R.id.txt_target_url_item_server);
+
         }
     }
 
@@ -35,9 +38,6 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
     private Context context;
 
     public ServerAdapter(Context context, List<Server> data) {
-
-        UtilApp.logMessage("Getting constructor " + data);
-
         this.context = context;
         this.data = data;
     }
@@ -52,8 +52,6 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
 
         viewHolder.setIsRecyclable(false);
 
-        UtilApp.logMessage("Getting viewHolder ");
-
         return viewHolder;
     }
 
@@ -64,17 +62,14 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
         viewHolder.urlTarget.setText(item.getTargetUrl());
         viewHolder.nameServer.setText(item.getName());
 
-        UtilApp.logMessage("Getting view " + data.size());
     }
 
     @Override
     public int getItemCount() {
-        UtilApp.logMessage("Getting count " + data.size());
         return data.size();
     }
 
     public Server getItem(int position){
-        UtilApp.logMessage("Getting position " + position);
         return data.get(position);
     }
 }

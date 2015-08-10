@@ -1,17 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RemoteLoggerClient</string>
 
+    <string name="app_name">RemoteLoggerClient</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_home">HomeActivity</string>
-
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string name="title_activity_server_register">ServerRegister</string>
-
-
     <string name="error_server_register_fields_required">All fields are required!</string>
 
-
+    <string name="toolbar_server_details">Server Details</string>
     <string name="toolbar_server_register">Register Server</string>
+
+    <string name="title_activity_server_details">ServerDetails</string>
+
 </resources>

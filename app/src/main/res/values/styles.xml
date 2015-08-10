@@ -26,4 +26,9 @@
     <color name="colorActionButton">#0288D1</color>
     <color name="errorColor">#F44336</color>
 
+    <color name="notification_debug">#CDDC39</color>
+    <color name="notification_info">#43A047</color>
+    <color name="notification_fatal">#C62828</color>
+    <color name="notification_error">#EF5350</color>
+
 </resources>

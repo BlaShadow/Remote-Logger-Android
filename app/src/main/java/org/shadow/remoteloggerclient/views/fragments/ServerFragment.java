@@ -10,6 +10,7 @@ import android.widget.Toast;
 import org.shadow.remoteloggerclient.R;
 import org.shadow.remoteloggerclient.domain.dao.ServerDAO;
 import org.shadow.remoteloggerclient.domain.model.Server;
+import org.shadow.remoteloggerclient.views.ServerDetails;
 import org.shadow.remoteloggerclient.views.ServerRegister;
 import org.shadow.remoteloggerclient.views.adapters.ServerAdapter;
 import org.shadow.remoteloggerclient.views.events.RecyclerItemClickListener;
@@ -20,6 +21,8 @@ import java.util.List;
  * Created by luis romero on 5/8/15.
  */
 public class ServerFragment extends BaseLocalFragment {
+
+    public static String SERVERID = "serverid";
 
     private RecyclerView lvServers;
 
@@ -51,6 +54,11 @@ public class ServerFragment extends BaseLocalFragment {
         /** Populate list **/
         bindRecycleView();
 
+        /** setup floating button **/
+        setupFloatingButton();
+    }
+
+    public void setupFloatingButton(){
         FloatingActionButton floatingButton = (FloatingActionButton)rootView.findViewById(R.id.fragment_server_add_server_btn);
 
         floatingButton.setOnClickListener(new View.OnClickListener() {
@@ -69,15 +77,20 @@ public class ServerFragment extends BaseLocalFragment {
         lvServers = (RecyclerView)rootView.findViewById(R.id.lv_items_server_fragment);
 
         lvServers.setHasFixedSize(true);
-       lvServers.setLayoutManager(layoutManager);
+        lvServers.setLayoutManager(layoutManager);
 
         lvServers.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         if (serverAdapter != null) {
-                            Toast.makeText(getActivity(),"Server",Toast.LENGTH_LONG).show();
-                            //TODO server click, show details
+                            Intent intentActivity = new Intent(getActivity(), ServerDetails.class);
+
+                            long itemId = serverAdapter.getItem(position).getId();
+
+                            intentActivity.putExtra(SERVERID, itemId);
+
+                            startActivity(intentActivity);
                         }
                     }
                 })
